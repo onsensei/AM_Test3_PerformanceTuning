@@ -13,10 +13,16 @@ class ThumbNailViewController: UITableViewController {
     @IBOutlet var thumbNailTableView: UITableView!
     let datasourceList: [String] = TestData.datasourceList
     
+    var firstImageSrc: UIImage? = nil
+    var secondImageSrc: UIImage? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         thumbNailTableView.delegate = self
         thumbNailTableView.dataSource = self
+        
+        firstImageSrc = base64Image(imageString: datasourceList[0])
+        secondImageSrc = base64Image(imageString: datasourceList[1])
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,8 +43,8 @@ class ThumbNailViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! ThumbNailCell
         cell.selectionStyle = .none
-        cell.firstImageView.image = base64Image(imageString: datasourceList[0])
-        cell.secondImageView.image = base64Image(imageString: datasourceList[1])
+        cell.firstImageView.image = firstImageSrc
+        cell.secondImageView.image = secondImageSrc
         return cell
     }
     
